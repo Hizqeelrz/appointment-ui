@@ -27,7 +27,7 @@ class Doctors extends React.Component {
     render() {
         return(
 					<div className="top-root">
-            <a>New Doctor</a>
+            New Doctor
 						<h2 className="doctor-heading">Doctors Collection</h2>
             <Paper>
 							<Table>
