@@ -3,13 +3,15 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-import DoctorForm from './components/DoctorForm';
+import Doctors from './components/Doctors';
+import MenuAppBar from './components/NavBar';
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <DoctorForm/>
+        <MenuAppBar />
+        <Doctors/>
       </div>
     );
   }

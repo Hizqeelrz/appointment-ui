@@ -8,6 +8,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
+import DoctorForm from './DoctorForm';
+
 class Doctors extends React.Component {
     state = {
         doctors: []
@@ -15,7 +17,6 @@ class Doctors extends React.Component {
 
     componentDidMount() {
         axios.get("http://localhost:4000/api/doctors").then(doc => {
-
             const doctors = doc.data.data;
             console.log(doc.data);
             this.setState({
@@ -27,7 +28,7 @@ class Doctors extends React.Component {
     render() {
         return(
 					<div className="top-root">
-            New Doctor
+            <span className="doc-form"> <DoctorForm /></span>  
 						<h2 className="doctor-heading">Doctors Collection</h2>
             <Paper>
 							<Table>

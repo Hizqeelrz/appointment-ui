@@ -123,7 +123,7 @@ class DoctorForm extends React.Component {
     return(
 <div>
         <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>
-          Open form dialog
+          Add Doctor
         </Button>
         <Dialog
           open={this.state.open}

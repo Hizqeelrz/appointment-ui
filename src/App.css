@@ -32,11 +32,14 @@
 } */
 
 .top-root {
-  margin-top: 125px;
   padding: 40px;
 }
 
 .doctor-heading {
   color: #000000de;
+  text-align: left;
+}
+
+.doc-form {
   text-align: center;
 }
