@@ -92,7 +92,7 @@ class DoctorForm extends React.Component {
       console.log(doct.data);
     })
 
-
+    this.onClose();
   }
   // state = {
   //   name: '',
@@ -184,7 +184,7 @@ class DoctorForm extends React.Component {
             />
           </DialogContent>
           <DialogActions>
-            <Button type="submit" onClick={this.handleSubmit} onClose={this.handleClose} color="primary">
+            <Button type="submit" onClick={this.handleSubmit} color="primary">
               Submit
             </Button>
             <Button onClick={this.onClose} color="primary">
