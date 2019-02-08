@@ -29,7 +29,7 @@ function NavBar(props) {
             </Link>
           </Typography>
           <Button color="inherit" component={Link} to={"/doctors"} >Doctors</Button>
-          <Button color="inherit" >Patients </Button>
+          <Button color="inherit" component={Link} to={"/patients"} >Patients </Button>
           <Button color="inherit" >Appointments </Button>
         </Toolbar>
       </AppBar>

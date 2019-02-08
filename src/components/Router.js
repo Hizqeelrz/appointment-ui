@@ -2,11 +2,13 @@ import React from 'react';
 
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import Doctors from "./Doctors";
+import Patients from "./Patients";
 import DoctorForm from './DoctorForm';
 import '../App.css';
 import App from '../App';
 import NavBar from './NavBar';
 import Error from './Error';
+
 
 const Router = () => {
   return(
@@ -16,6 +18,7 @@ const Router = () => {
       <Switch>
         <Route path="/" component={App} exact />
         <Route path="/doctors" component={Doctors} />
+        <Route path="/patients" component={Patients} />
         <Route component={Error} />
       </Switch>
     </div>

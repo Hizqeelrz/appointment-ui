@@ -27,7 +27,7 @@ class Doctors extends React.Component {
     
     render() {
         return(
-					<div className="top-root">
+					<div className="doc-top-root">
             <span className="doc-form"> <DoctorForm /></span>  
 						<h2 className="doctor-heading">Doctors Collection</h2>
             <Paper>

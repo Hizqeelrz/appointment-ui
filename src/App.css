@@ -31,7 +31,7 @@
   }
 } */
 
-.top-root {
+.doc-top-root {
   padding: 40px;
 }
 
@@ -41,5 +41,18 @@
 }
 
 .doc-form {
+  text-align: center;
+}
+
+.pat-top-root {
+  padding: 40px;
+}
+
+.patient-heading {
+  color: #000000de;
+  text-align: left;
+}
+
+.pat-form {
   text-align: center;
 }

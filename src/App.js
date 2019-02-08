@@ -5,6 +5,8 @@ import './App.css';
 
 import Doctors from './components/Doctors';
 import NavBar from './components/NavBar';
+import Patients from './components/Patients';
+import PatientForm from './components/PatientForm';
 
 class App extends Component {
   render() {
