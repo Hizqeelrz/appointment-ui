@@ -31,6 +31,7 @@
   }
 } */
 
+/* Doctor Style */
 .doc-top-root {
   padding: 40px;
 }
@@ -44,6 +45,8 @@
   text-align: center;
 }
 
+/* Patient Style */
+
 .pat-top-root {
   padding: 40px;
 }
@@ -54,5 +57,20 @@
 }
 
 .pat-form {
+  text-align: center;
+}
+
+/* Appointment Style */
+
+.appoin-top-root {
+  padding: 40px;
+}
+
+.appointment-heading {
+  color: #000000de;
+  text-align: left;
+}
+
+.appoin-form {
   text-align: center;
 }
