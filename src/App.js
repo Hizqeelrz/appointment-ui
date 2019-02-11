@@ -9,12 +9,14 @@ import Patients from './components/Patients';
 import Appointments from './components/Appointments';
 import PatientForm from './components/PatientForm';
 import AppointmentForm from './components/AppointmentForm';
+import Login from './components/Login';
 
 
 class App extends Component {
   render() {
     return (
       <div className="App">
+        <Login />
       </div>
     );
   }

@@ -146,6 +146,7 @@ class AppointmentForm extends React.Component {
               id="app-date"
               label="Date"
               type="date"
+              defaultValue="2019-02-14"
               onChange={this.onChangeDate}
               fullWidth
             />
@@ -170,6 +171,7 @@ class AppointmentForm extends React.Component {
               id="app-start_time"
               label="StartTime"
               type="time"
+              defaultValue="13:30"
               onChange={this.onChangeStartTime}
               fullWidth
             />
@@ -178,6 +180,7 @@ class AppointmentForm extends React.Component {
               id="app-end_time"
               label="EndTime"
               type="time"
+              defaultValue="14:00"
               onChange={this.onChangeEndTime}
               fullWidth
             />
