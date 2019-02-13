@@ -1,5 +1,5 @@
 import React from 'react';
-import Axios from 'axios';
+import axios from 'axios';
 
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
@@ -17,36 +17,75 @@ const styles = theme => ({
   },
 });
 
-
 class Login extends React.Component {
 
   state = {
-    users: []
+    users: [],
+    email: "",
+    password: ""
   }
 
-  // componentDidMount() {
-  //   Axios.get('http://localhost:4000/api/users').then(user => {
-  //     const users = user.data;
+  onChangeEmail = (e) => {
+    this.setState({
+      email: e.target.value
+    })
+  }
 
-  //     this.setState({
-  //       users
-  //     })
-  //   })
+  onChangePassword = (e) => {
+    this.setState({
+      password: e.target.value
+    })
+  }
+
+
+  // accountSignIn = (userInfo) => {
+  //     return async dispatch => {
+  //     try {
+  //         const resp = await axios.post(`http://localhost:4000/api/sign_in`, userInfo);
+  //         console.log(resp);
+  //         localStorage.setItem('token', resp.data.token);
+  //         dispatch({ type: "sign_in" });
+  //     } catch(err){
+  //         console.log('Error Signing In:', err.message);
+  //     }
+  //     }
   // }
+
+  handleSignIn = (e) => {
+    e.preventDefault();
+    const use = {
+      email: this.state.email,
+      password: this.state.password
+    }
+
+      try {
+          const resp = axios.post(`http://localhost:4000/api/sign_in`, use).then(auth => {
+            console.log(auth);
+          localStorage.setItem('token', auth.data.token);
+          });
+          console.log(resp);
+          localStorage.setItem('token', resp.data.token);
+      } catch(err){
+          console.log('Error Signing In:', err.message);
+      }
+  }
 
   render() {
     const { classes } = this.props;
+
     return (
       <div className="login-form">
         <FormControl>
           <FormGroup className="login-form">
             <TextField
+              autoFocus
               margin="dense"
               name="email"
               id="pat-email"
               label="Email"
               className={classes.textField}
               type="email"
+              onChange={this.onChangeEmail}
               fullWidth
             />
 
@@ -57,12 +96,15 @@ class Login extends React.Component {
               autoComplete="current-password"
               className={classes.textField}
               margin="dense"
+              onChange={this.onChangePassword}
               fullWidth
             />
 
-            <Button type="submit" color="primary">
-              LogIn
-            </Button>
+            <span className="login-btn">
+              <Button type="submit" color="primary" onClick={this.handleSignIn}>
+                LogIn
+              </Button>
+            </span>
           </FormGroup>
         </FormControl>
       </div>
