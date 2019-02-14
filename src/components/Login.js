@@ -9,6 +9,9 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormControl from '@material-ui/core/FormControl';
 import Button from '@material-ui/core/Button';
 
+import AuthService from "./AuthService";
+import history from "../history";
+
 
 const styles = theme => ({
   textField: {
@@ -19,10 +22,20 @@ const styles = theme => ({
 
 class Login extends React.Component {
 
-  state = {
-    users: [],
-    email: "",
-    password: ""
+  constructor(props) {
+      super(props);
+      this.state = {
+        users: [],
+        email: "",
+        password: ""
+      }
+      this.Auth = new AuthService();
+  }
+
+  componentWillMount() {
+    if(this.Auth.loggedIn()) {
+      this.props.history.replace('/');
+    }
   }
 
   onChangeEmail = (e) => {
@@ -36,6 +49,20 @@ class Login extends React.Component {
       password: e.target.value
     })
   }
+
+
+  handleFormSubmit = (e) => {
+    e.preventDefault();
+
+    this.Auth.handleSignIn(this.state.email, this.state.password)
+    .then(user => {
+      this.props.history.replace('/');
+    }).catch(err => {
+      alert(err);
+    })
+  }
+
+
 
 
   // accountSignIn = (userInfo) => {
@@ -61,10 +88,9 @@ class Login extends React.Component {
       try {
           const resp = axios.post(`http://localhost:4000/api/sign_in`, use).then(auth => {
             console.log(auth);
-          localStorage.setItem('token', auth.data.token);
+          localStorage.setItem('token', auth.data.jwt);
           });
           console.log(resp);
-          localStorage.setItem('token', resp.data.token);
       } catch(err){
           console.log('Error Signing In:', err.message);
       }
@@ -101,7 +127,7 @@ class Login extends React.Component {
             />
 
             <span className="login-btn">
-              <Button type="submit" color="primary" onClick={this.handleSignIn}>
+              <Button type="submit" color="primary" onClick={this.handleFormSubmit}>
                 LogIn
               </Button>
             </span>
