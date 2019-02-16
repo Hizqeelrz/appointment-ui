@@ -9,6 +9,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
 import DoctorForm from './DoctorForm';
+import NavBar from './NavBar';
 
 class Doctors extends React.Component {
     state = {
@@ -27,39 +28,42 @@ class Doctors extends React.Component {
     
     render() {
         return(
-					<div className="doc-top-root">
+					<div>
+            <NavBar />
+          <div className="doc-top-root">
             <span className="doc-form"> <DoctorForm /></span>  
 						<h2 className="doctor-heading">Doctors Collection</h2>
-            <Paper>
-							<Table>
-								<TableHead>
-									<TableRow>
-										<TableCell>ID</TableCell>
-										<TableCell aligh="right">Name</TableCell>
-										<TableCell aligh="right">Email</TableCell>
-										<TableCell aligh="right">Age</TableCell>
-										<TableCell aligh="right">Gender</TableCell>
-										<TableCell aligh="right">Qualification</TableCell>
-										<TableCell aligh="right">Speciality</TableCell>
-									</TableRow>
-								</TableHead>
-								<TableBody>
-									{this.state.doctors.map(doctor => (
-										<TableRow key={doctor.id}>
-											<TableCell component="th" scope="row">
-												{doctor.id}
-											</TableCell>
-											<TableCell aligh="right">{doctor.name}</TableCell>
-											<TableCell aligh="right">{doctor.email}</TableCell>
-											<TableCell aligh="right">{doctor.age}</TableCell>
-											<TableCell aligh="right">{doctor.gender}</TableCell>
-											<TableCell aligh="right">{doctor.qualification}</TableCell>
-											<TableCell aligh="right">{doctor.speciality}</TableCell>
-										</TableRow>
-									))}
-								</TableBody>
-							</Table>
-            </Paper>  
+              <Paper>
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>ID</TableCell>
+                      <TableCell aligh="right">Name</TableCell>
+                      <TableCell aligh="right">Email</TableCell>
+                      <TableCell aligh="right">Age</TableCell>
+                      <TableCell aligh="right">Gender</TableCell>
+                      <TableCell aligh="right">Qualification</TableCell>
+                      <TableCell aligh="right">Speciality</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {this.state.doctors.map(doctor => (
+                      <TableRow key={doctor.id}>
+                        <TableCell component="th" scope="row">
+                          {doctor.id}
+                        </TableCell>
+                        <TableCell aligh="right">{doctor.name}</TableCell>
+                        <TableCell aligh="right">{doctor.email}</TableCell>
+                        <TableCell aligh="right">{doctor.age}</TableCell>
+                        <TableCell aligh="right">{doctor.gender}</TableCell>
+                        <TableCell aligh="right">{doctor.qualification}</TableCell>
+                        <TableCell aligh="right">{doctor.speciality}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </Paper>  
+            </div>
 					</div>	
         )
     }

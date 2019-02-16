@@ -54,7 +54,7 @@ class Login extends React.Component {
   handleFormSubmit = (e) => {
     e.preventDefault();
 
-    this.Auth.handleSignIn(this.state.email, this.state.password)
+    this.Auth.SignIn(this.state.email, this.state.password)
     .then(user => {
       this.props.history.replace('/');
     }).catch(err => {

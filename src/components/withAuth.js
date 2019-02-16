@@ -3,7 +3,7 @@ import AuthService from "./AuthService";
 import history from "../history";
 
 export default function withAuth(AuthComponent) {
-  const Auth = new AuthService('http://localhost:4000/api/');
+  const Auth = new AuthService('http://localhost:4000/api/sign_in');
   return class AuthWrapped extends React.Component {
     constructor(props) {
       super(props);

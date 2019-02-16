@@ -25,12 +25,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <div>
-          <h2>Welcome {this.props.user}</h2>
-        </div>
-        <p className="App-intro">
-          <button type="button" className="form-submit" onClick={this.handleLogOut}>Logout</button>
-        </p>
+      <NavBar />
       </div>
     );
   }

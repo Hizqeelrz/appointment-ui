@@ -2,11 +2,11 @@ import decode from "jwt-decode";
 
 export default class AuthService{
   constructor(domain){
-    this.domain = domain || 'http://localhost:4000/api/';
+    this.domain = domain || 'http://localhost:4000/api/sign_in';
   }
 
-  handleSignIn = (email, password) => {
-    return this.fetch(`${this.domain}/sign_in`, {
+  SignIn = (email, password) => {
+    return this.fetch(`${this.domain}`, {
       method: "POST",
       body: JSON.stringify({
         email,

@@ -6,7 +6,11 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 
-import {Link} from 'react-router-dom';
+import {Link, withRouter} from 'react-router-dom';
+
+import history from "../history";
+import AuthService from './AuthService';
+const Auth = new AuthService();
 
 const styles = {
   root: {
@@ -17,8 +21,14 @@ const styles = {
   },
 };
 
-function NavBar(props) {
-  const { classes } = props;
+class NavBar extends React.Component {
+
+  handleLogOut = () => {
+    Auth.logOut()
+    this.props.history.replace('/login');
+  }
+  render() {
+  const{ classes } = this.props;
   return (
     <div className={classes.root}>
       <AppBar position="static">
@@ -31,15 +41,15 @@ function NavBar(props) {
           <Button color="inherit" component={Link} to={"/doctors"} >Doctors</Button>
           <Button color="inherit" component={Link} to={"/patients"} >Patients </Button>
           <Button color="inherit" component={Link} to={"/appointments"} >Appointments </Button>
-          <Button color="inherit" > SignOut </Button>
+          <Button color="inherit" onClick={this.handleLogOut}> SignOut </Button>
         </Toolbar>
       </AppBar>
     </div>
-  );
+  )};
 }
 
 NavBar.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(NavBar);
+export default withRouter(withStyles(styles)(NavBar));
