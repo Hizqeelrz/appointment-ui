@@ -13,7 +13,15 @@ import NavBar from "./NavBar";
 
 class Appointments extends React.Component {
     state = {
-        appointments: []
+        appointments: [],
+        date: '',
+        patient_id: '',
+        doctor_id: '',
+        start_time: '',
+        end_time: '',
+        charges: '',
+        description: '',
+        open: false,
     }
 
     componentDidMount() {
@@ -25,13 +33,103 @@ class Appointments extends React.Component {
             });
         })
     }
-    
+
+    onChangeDate = (e) => {
+      this.setState({
+        date: e.target.value
+      })
+    }
+  
+    onChangePatientID = (e) => {
+      this.setState({
+        patient_id: e.target.value
+      })
+    }
+  
+    onChangeDoctorID = (e) => {
+      this.setState({
+        doctor_id: e.target.value
+      })
+    }
+  
+    onChangeStartTime = (e) => {
+      this.setState({
+        start_time: e.target.value
+      })
+    }
+  
+    onChangeEndTime = (e) => {
+      this.setState({
+        end_time: e.target.value
+      })
+    }
+  
+    onChangeCharges = (e) => {
+      this.setState({
+        charges: e.target.value
+      })
+    }
+  
+    onChangeDescription = (e) => {
+      this.setState({
+        description: e.target.value
+      })
+    }
+  
+  
+    handleClickOpen = () => {
+      this.setState({ open: true });
+    };
+  
+    handleClose = () => {
+      this.setState({ open: true });
+    };
+  
+    onClose = () => {
+      this.setState({ open: false});
+    }
+  
+    handleSubmit = (e) => {
+      e.preventDefault();
+  
+      const appointment = {
+        date: this.state.date,
+        patient_id: this.state.patient_id,
+        doctor_id: this.state.doctor_id,
+        start_time: this.state.start_time,
+        end_time: this.state.end_time,
+        charges: this.state.charges,
+        description: this.state.description
+      }
+  
+      axios.post("http://localhost:4000/api/appointments", {appointment}).then(appoi => {
+        console.log(appoi);
+        console.log(appoi.data);
+      })
+  
+      this.onClose();
+    }
+
     render() {
         return(
 					<div>
             <NavBar />            
             <div className="appoin-top-root">
-              <span className="appoin-form"> <AppointmentForm /></span>  
+              <span className="appoin-form"> <AppointmentForm
+                opening={this.state.open}
+                handleClickOpen={this.handleClickOpen}
+                handleClose={this.handleClose}
+                onClose={this.onClose}
+                handleSubmit={this.handleSubmit}
+                onChangeDate={this.onChangeDate}
+                onChangeCharges={this.onChangeCharges}
+                onChangeDescription={this.onChangeDescription}
+                onChangeEndTime={this.onChangeEndTime}
+                onChangeStartTime={this.onChangeStartTime}
+                onChangeDoctorID={this.onChangeDoctorID}
+                onChangePatientID={this.onChangePatientID}
+               />
+               </span>  
               <h2 className="appointment-heading">Appointments Collection</h2>
               <Paper>
                 <Table>

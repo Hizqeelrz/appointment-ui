@@ -7,149 +7,19 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import PropTypes from 'prop-types';
 
 
 class PatientForm extends React.Component {
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      firstname: '',
-      lastname: '',
-      email: '',
-      age: '',
-      gender: '',
-      address: '',
-      phone: '',
-      city: '',
-      state: '',
-      open: false,
-    }
-  }
-
-  onChangeFirstName = (e) => {
-    this.setState({
-      firstname: e.target.value
-    })
-  }
-
-  onChangeLastName = (e) => {
-    this.setState({
-      lastname: e.target.value
-    })
-  }
-
-  onChangeEmail = (e) => {
-    this.setState({
-      email: e.target.value
-    })
-  }
-
-  onChangeAge = (e) => {
-    this.setState({
-      age: e.target.value
-    })
-  }
-
-  onChangeGender = (e) => {
-    this.setState({
-      gender: e.target.value
-    })
-  }
-
-  onChangeAddress = (e) => {
-    this.setState({
-      address: e.target.value
-    })
-  }
-
-  onChangePhone = (e) => {
-    this.setState({
-      phone: e.target.value
-    })
-  }
-
-  onChangeCity = (e) => {
-    this.setState({
-      city: e.target.value
-    })
-  }
-
-  onChangeState = (e) => {
-    this.setState({
-      state: e.target.value
-    })
-  }
-
-
-  handleClickOpen = () => {
-    this.setState({ open: true });
-  };
-
-  handleClose = () => {
-    this.setState({ open: true });
-  };
-
-  onClose = () => {
-    this.setState({ open: false});
-  }
-
-  handleSubmit = (e) => {
-    e.preventDefault();
-
-    const patient = {
-      firstname: this.state.firstname,
-      lastname: this.state.lastname,
-      email: this.state.email,
-      age: this.state.age,
-      gender: this.state.gender,
-      address: this.state.address,
-      phone: this.state.phone,
-      city: this.state.city,
-      state: this.state.state
-    }
-
-    axios.post("http://localhost:4000/api/patients", {patient}).then(pat => {
-      console.log(pat);
-      console.log(pat.data);
-    })
-
-    this.onClose();
-  }
-  // state = {
-  //   name: '',
-  //   email: '',
-  //   age: '',
-  //   gender: '',
-  //   qualification: '',
-  //   speciality: ''
-  // }
-
-  // handleChange = (e) => {
-  //   this.setState({
-  //     postDoctor: e.target.value
-  //   })
-  // }
-
-  // handleSubmit = (e) => {
-  //   e.preventDefault();
-
-  //   const doctor = {
-  //     postDoctor: this.state.postDoctor
-  //   }
-  // }
-
-
-
   render() {
     return(
 <div>
-        <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>
+        <Button variant="outlined" color="primary" onClick={this.props.clickOpen}>
           Add Patient
         </Button>
         <Dialog
-          open={this.state.open}
+          open={this.props.closing}
           onClose={this.handleClose}
           aria-labelledby="form-dialog-title"
         >
@@ -161,7 +31,7 @@ class PatientForm extends React.Component {
               id="pat-firstname"
               label="FirstName"
               type="text"
-              onChange={this.onChangeFirstName}
+              onChange={this.props.onChangeFirstName}
               fullWidth
             />
             <TextField
@@ -169,7 +39,7 @@ class PatientForm extends React.Component {
               id="pat-lastname"
               label="LastName"
               type="text"
-              onChange={this.onChangeLastName}
+              onChange={this.props.onChangeLastName}
               fullWidth
             />
             <TextField
@@ -178,7 +48,7 @@ class PatientForm extends React.Component {
               id="pat-email"
               label="Email Address"
               type="email"
-              onChange={this.onChangeEmail}
+              onChange={this.props.onChangeEmail}
               fullWidth
             />
             <TextField
@@ -186,7 +56,7 @@ class PatientForm extends React.Component {
               id="pat-age"
               label="Age"
               type="number"
-              onChange={this.onChangeAge}
+              onChange={this.props.onChangeAge}
               fullWidth
             />
             <TextField
@@ -194,7 +64,7 @@ class PatientForm extends React.Component {
               id="pat-gender"
               label="Gender"
               type="text"
-              onChange={this.onChangeGender}
+              onChange={this.props.onChangeGender}
               fullWidth
             />
             <TextField
@@ -202,7 +72,7 @@ class PatientForm extends React.Component {
               id="pat-address"
               label="Address"
               type="text"
-              onChange={this.onChangeAddress}
+              onChange={this.props.onChangeAddress}
               fullWidth
             />
             <TextField
@@ -210,7 +80,7 @@ class PatientForm extends React.Component {
               id="pat-phone"
               label="Phone"
               type="text"
-              onChange={this.onChangePhone}
+              onChange={this.props.onChangePhone}
               fullWidth
             />
             <TextField
@@ -218,7 +88,7 @@ class PatientForm extends React.Component {
               id="pat-city"
               label="City"
               type="text"
-              onChange={this.onChangeCity}
+              onChange={this.props.onChangeCity}
               fullWidth
             />
             <TextField
@@ -226,15 +96,15 @@ class PatientForm extends React.Component {
               id="pat-state"
               label="State"
               type="text"
-              onChange={this.onChangeState}
+              onChange={this.props.onChangeState}
               fullWidth
             />
           </DialogContent>
           <DialogActions>
-            <Button type="submit" onClick={this.handleSubmit} color="primary">
+            <Button type="submit" onClick={this.props.handleSubmit} color="primary">
               Submit
             </Button>
-            <Button onClick={this.onClose} color="primary">
+            <Button onClick={this.props.clickClose} color="primary">
               Close
             </Button>
           </DialogActions>
@@ -243,5 +113,9 @@ class PatientForm extends React.Component {
     );
   }
 }
+
+PatientForm.propTypes = {
+  clickOpen: PropTypes.func
+};
 
 export default PatientForm;

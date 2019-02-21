@@ -12,122 +12,15 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 
 class DoctorForm extends React.Component {
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      name: '',
-      email: '',
-      age: '',
-      gender: '',
-      qualification: '',
-      speciality: '',
-      open: false,
-    }
-  }
-
-  onChangeName = (e) => {
-    this.setState({
-      name: e.target.value
-    })
-  }
-
-  onChangeEmail = (e) => {
-    this.setState({
-      email: e.target.value
-    })
-  }
-
-  onChangeAge = (e) => {
-    this.setState({
-      age: e.target.value
-    })
-  }
-
-  onChangeGender = (e) => {
-    this.setState({
-      gender: e.target.value
-    })
-  }
-
-  onChangeQualification = (e) => {
-    this.setState({
-      qualification: e.target.value
-    })
-  }
-
-  onChangeSpecilaity = (e) => {
-    this.setState({
-      speciality: e.target.value
-    })
-  }
-
-
-  handleClickOpen = () => {
-    this.setState({ open: true });
-  };
-
-  handleClose = () => {
-    this.setState({ open: true });
-  };
-
-  onClose = () => {
-    this.setState({ open: false});
-  }
-
-  handleSubmit = (e) => {
-    e.preventDefault();
-
-    const doctor = {
-      name: this.state.name,
-      email: this.state.email,
-      age: this.state.age,
-      gender: this.state.gender,
-      qualification: this.state.qualification,
-      speciality: this.state.speciality
-    }
-
-    axios.post("http://localhost:4000/api/doctors", {doctor}).then(doct => {
-      console.log(doct);
-      console.log(doct.data);
-    })
-
-    this.onClose();
-  }
-  // state = {
-  //   name: '',
-  //   email: '',
-  //   age: '',
-  //   gender: '',
-  //   qualification: '',
-  //   speciality: ''
-  // }
-
-  // handleChange = (e) => {
-  //   this.setState({
-  //     postDoctor: e.target.value
-  //   })
-  // }
-
-  // handleSubmit = (e) => {
-  //   e.preventDefault();
-
-  //   const doctor = {
-  //     postDoctor: this.state.postDoctor
-  //   }
-  // }
-
-
-
   render() {
     return(
 <div>
-        <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>
+        <Button variant="outlined" color="primary" onClick={this.props.handleClickOpen}>
           Add Doctor
         </Button>
         <Dialog
-          open={this.state.open}
-          onClose={this.handleClose}
+          open={this.props.opening}
+          onClose={this.props.handleClose}
           aria-labelledby="form-dialog-title"
         >
           <DialogTitle id="form-dialog-title">Doctor Info</DialogTitle>
@@ -138,7 +31,7 @@ class DoctorForm extends React.Component {
               id="doc-name"
               label="Name"
               type="text"
-              onChange={this.onChangeName}
+              onChange={this.props.onChangeName}
               fullWidth
             />
             <TextField
@@ -147,7 +40,7 @@ class DoctorForm extends React.Component {
               id="doc-email"
               label="Email Address"
               type="email"
-              onChange={this.onChangeEmail}
+              onChange={this.props.onChangeEmail}
               fullWidth
             />
             <TextField
@@ -155,7 +48,7 @@ class DoctorForm extends React.Component {
               id="doc-age"
               label="Age"
               type="number"
-              onChange={this.onChangeAge}
+              onChange={this.props.onChangeAge}
               fullWidth
             />
             <TextField
@@ -163,7 +56,7 @@ class DoctorForm extends React.Component {
               id="doc-gender"
               label="Gender"
               type="text"
-              onChange={this.onChangeGender}
+              onChange={this.props.onChangeGender}
               fullWidth
             />
             <TextField
@@ -171,7 +64,7 @@ class DoctorForm extends React.Component {
               id="doc-qualification"
               label="Qualification"
               type="text"
-              onChange={this.onChangeQualification}
+              onChange={this.props.onChangeQualification}
               fullWidth
             />
             <TextField
@@ -179,15 +72,15 @@ class DoctorForm extends React.Component {
               id="doc-speciality"
               label="Speciality"
               type="text"
-              onChange={this.onChangeSpecilaity}
+              onChange={this.props.onChangeSpecilaity}
               fullWidth
             />
           </DialogContent>
           <DialogActions>
-            <Button type="submit" onClick={this.handleSubmit} color="primary">
+            <Button type="submit" onClick={this.props.handleSubmit} color="primary">
               Submit
             </Button>
-            <Button onClick={this.onClose} color="primary">
+            <Button onClick={this.props.onClose} color="primary">
               Close
             </Button>
           </DialogActions>

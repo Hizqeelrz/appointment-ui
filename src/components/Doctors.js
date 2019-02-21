@@ -13,7 +13,14 @@ import NavBar from './NavBar';
 
 class Doctors extends React.Component {
     state = {
-        doctors: []
+        doctors: [],
+        name: '',
+        email: '',
+        age: '',
+        gender: '',
+        qualification: '',
+        speciality: '',
+        open: false,
     }
 
     componentDidMount() {
@@ -25,13 +32,99 @@ class Doctors extends React.Component {
             });
         })
     }
-    
+
+    componentDidUpdate(){
+
+    }
+
+    onChangeName = (e) => {
+      this.setState({
+        name: e.target.value
+      })
+    }
+  
+    onChangeEmail = (e) => {
+      this.setState({
+        email: e.target.value
+      })
+    }
+  
+    onChangeAge = (e) => {
+      this.setState({
+        age: e.target.value
+      })
+    }
+  
+    onChangeGender = (e) => {
+      this.setState({
+        gender: e.target.value
+      })
+    }
+  
+    onChangeQualification = (e) => {
+      this.setState({
+        qualification: e.target.value
+      })
+    }
+  
+    onChangeSpecilaity = (e) => {
+      this.setState({
+        speciality: e.target.value
+      })
+    }
+  
+  
+    handleClickOpen = () => {
+      this.setState({ open: true });
+    };
+  
+    handleClose = () => {
+      this.setState({ open: true });
+    };
+  
+    onClose = () => {
+      this.setState({ open: false});
+    }
+  
+    handleSubmit = (e) => {
+      e.preventDefault();
+  
+      const doctor = {
+        name: this.state.name,
+        email: this.state.email,
+        age: this.state.age,
+        gender: this.state.gender,
+        qualification: this.state.qualification,
+        speciality: this.state.speciality
+      }
+  
+      axios.post("http://localhost:4000/api/doctors", {doctor}).then(doct => {
+        console.log(doct);
+        console.log(doct.data);
+      })
+  
+      this.onClose();
+    }
+
     render() {
         return(
 					<div>
             <NavBar />
           <div className="doc-top-root">
-            <span className="doc-form"> <DoctorForm /></span>  
+            <span className="doc-form"> <DoctorForm
+            handleClickOpen={this.handleClickOpen}
+            opening={this.state.open}
+            handleClose={this.handleClose}
+            onClose={this.onClose}
+            handleSubmit={this.handleSubmit}
+            onChangeName={this.onChangeName}
+            onChangeAge={this.onChangeAge}
+            onChangeEmail={this.onChangeEmail}
+            onChangeGender={this.onChangeGender}
+            onChangeQualification={this.onChangeQualification}
+            onChangeSpecilaity={this.onChangeSpecilaity}
+            />
+            </span>  
 						<h2 className="doctor-heading">Doctors Collection</h2>
               <Paper>
                 <Table>
