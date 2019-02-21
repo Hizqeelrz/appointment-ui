@@ -133,6 +133,7 @@ class Patients extends React.Component {
       })
   
       this.handleOnClose();
+      window.location.reload();
     }
     
     render() {

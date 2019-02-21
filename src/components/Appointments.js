@@ -108,6 +108,7 @@ class Appointments extends React.Component {
       })
   
       this.onClose();
+      window.location.reload();
     }
 
     render() {
