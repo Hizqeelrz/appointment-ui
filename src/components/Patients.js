@@ -7,9 +7,21 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import { withStyles } from '@material-ui/core/styles';
+import DeleteIcon from '@material-ui/icons/Delete';
+import Button from '@material-ui/core/Button';
 
 import PatientForm from './PatientForm';
 import NavBar from './NavBar';
+
+const styles = theme => ({
+  button: {
+    margin: theme.spacing.unit,
+  },
+  rightIcon: {
+    marginLeft: theme.spacing.unit,
+  },
+});
 
 class Patients extends React.Component {
   constructor(props) {
@@ -136,7 +148,27 @@ class Patients extends React.Component {
       window.location.reload();
     }
     
+    handleDelete = async patient => {
+      /* store the current state in previousPatient, just in case of server side fail */
+       const previousPatient = this.state.patients;
+    /* optimistically, update on browser side, */
+       const patients = this.state.patients.filter(d => d.id !== patient.id);
+
+       this.setState({ 
+         patients
+       });
+   
+    /* server side update.  If any fail, rollback the state */
+       try {
+        await axios.delete(`http://localhost:4000/api/patients/${patient.id}`);
+        } catch (e) {
+        this.setState({patients: previousPatient});
+      }
+      console.log("ID: " + patient.id + " is Deleted Successfully")
+   };
+
     render() {
+      const classes = this.props;
         return(
 					<div>
             <NavBar/>
@@ -171,12 +203,11 @@ class Patients extends React.Component {
                       <TableCell aligh="right">Address</TableCell>
                       <TableCell aligh="right">Phone</TableCell>
                       <TableCell aligh="right">City</TableCell>
-                      <TableCell aligh="right">State</TableCell>
-
+                      <TableCell></TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {this.state.patients.map(patient => (
+                    {this.state.patients.map((patient, i) => (
                       <TableRow key={patient.id}>
                         <TableCell component="th" scope="row">
                           {patient.id}
@@ -188,7 +219,12 @@ class Patients extends React.Component {
                         <TableCell aligh="right">{patient.address}</TableCell>
                         <TableCell aligh="right">{patient.phone}</TableCell>
                         <TableCell aligh="right">{patient.city}</TableCell>
-                        <TableCell aligh="right">{patient.state}</TableCell>
+                        <TableCell>
+                          <Button type="submit" onClick={e => this.handleDelete(patient, i)} variant="contained" size="small" color="secondary" className={classes.button}>
+                            Delete
+                            <DeleteIcon className={classes.rightIcon} />
+                          </Button>
+                        </TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
@@ -200,4 +236,4 @@ class Patients extends React.Component {
     }
 }
 
-export default Patients;
+export default withStyles(styles)(Patients);

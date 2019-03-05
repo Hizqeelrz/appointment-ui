@@ -32,11 +32,11 @@ class Login extends React.Component {
       this.Auth = new AuthService();
   }
 
-  componentWillMount() {
-    if(this.Auth.loggedIn()) {
-      this.props.history.replace('/');
-    }
-  }
+  // componentWillMount() {
+  //   if(this.Auth.loggedIn()) {
+  //     this.props.history.replace('/');
+  //   }
+  // }
 
   onChangeEmail = (e) => {
     this.setState({
@@ -51,17 +51,27 @@ class Login extends React.Component {
   }
 
 
+  // handleFormSubmit = (e) => {
+  //   e.preventDefault();
+
+  //   this.Auth.SignIn(this.state.email, this.state.password)
+  //   .then(user => {
+  //     this.props.history.replace('/');
+  //   }).catch(err => {
+  //     alert(err);
+  //   })
+  // }
+
   handleFormSubmit = (e) => {
     e.preventDefault();
 
     this.Auth.SignIn(this.state.email, this.state.password)
     .then(user => {
-      this.props.history.replace('/');
+      this.props.history.push("/");
     }).catch(err => {
       alert(err);
     })
   }
-
 
 
 

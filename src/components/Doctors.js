@@ -1,5 +1,5 @@
 import React from 'react';
-import axios from 'axios';
+import Axios from 'axios';
 
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -7,9 +7,21 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import { withStyles } from '@material-ui/core/styles';
+import DeleteIcon from '@material-ui/icons/Delete';
+import Button from '@material-ui/core/Button';
 
 import DoctorForm from './DoctorForm';
 import NavBar from './NavBar';
+
+const styles = theme => ({
+  button: {
+    margin: theme.spacing.unit,
+  },
+  rightIcon: {
+    marginLeft: theme.spacing.unit,
+  },
+});
 
 class Doctors extends React.Component {
     state = {
@@ -23,14 +35,13 @@ class Doctors extends React.Component {
         open: false,
     }
 
-    componentDidMount() {
-        axios.get("http://localhost:4000/api/doctors").then(doc => {
-            const doctors = doc.data.data;
-            console.log(doc.data);
-            this.setState({
-                doctors
-            });
-        })
+    async componentDidMount() {
+      const response = await Axios.get("http://localhost:4000/api/doctors")
+      const  doctors = response.data.data
+      console.log(doctors)
+      this.setState({
+        doctors
+      });
     }
 
     componentDidUpdate(){
@@ -98,7 +109,7 @@ class Doctors extends React.Component {
         speciality: this.state.speciality
       }
   
-      axios.post("http://localhost:4000/api/doctors", {doctor}).then(doct => {
+      Axios.post("http://localhost:4000/api/doctors", {doctor}).then(doct => {
         console.log(doct);
         console.log(doct.data);
       })
@@ -107,7 +118,44 @@ class Doctors extends React.Component {
       window.location.reload();
     }
 
+    handleChangeId = (e) => {
+      this.setState({
+        id: e.target.value
+      });
+    }
+
+    // handleDelete = async doctor => {
+    //   await Axios.delete(`http://localhost:4000/api/doctors/${doctor.id}`);
+    //   const doctors = this.state.doctors.filter(d => d.id !== doctor.id);
+
+    //   console.log(doctor.id);
+
+    //   this.setState({
+    //     doctors
+    //   });
+    // }
+
+    handleDelete = async doctor => {
+      /* store the current state in previousDoctor, just in case of server side fail */
+       const previousDoctor = this.state.doctors;
+    /* optimistically, update on browser side, */
+       const doctors = this.state.doctors.filter(d => d.id !== doctor.id);
+
+       this.setState({ 
+         doctors
+       });
+   
+    /* server side update.  If any fail, rollback the state */
+       try {
+        await Axios.delete(`http://localhost:4000/api/doctors/${doctor.id}`);
+        } catch (e) {
+        this.setState({doctors: previousDoctor});
+      }
+      console.log("ID: " + doctor.id + " is Deleted Successfully")
+   };
+
     render() {
+      const { classes } = this.props;
         return(
 					<div>
             <NavBar />
@@ -138,10 +186,11 @@ class Doctors extends React.Component {
                       <TableCell aligh="right">Gender</TableCell>
                       <TableCell aligh="right">Qualification</TableCell>
                       <TableCell aligh="right">Speciality</TableCell>
+                      <TableCell></TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {this.state.doctors.map(doctor => (
+                    {this.state.doctors.map((doctor, i) => (
                       <TableRow key={doctor.id}>
                         <TableCell component="th" scope="row">
                           {doctor.id}
@@ -152,15 +201,21 @@ class Doctors extends React.Component {
                         <TableCell aligh="right">{doctor.gender}</TableCell>
                         <TableCell aligh="right">{doctor.qualification}</TableCell>
                         <TableCell aligh="right">{doctor.speciality}</TableCell>
-                      </TableRow>
+                        <TableCell>
+                        <Button type="submit" onClick={e => this.handleDelete(doctor, i)} variant="contained" size="small" color="secondary" className={classes.button}>
+                          Delete
+                          <DeleteIcon className={classes.rightIcon} />
+                        </Button>
+                        </TableCell>
+                        </TableRow>
                     ))}
                   </TableBody>
                 </Table>
-              </Paper>  
+              </Paper>
             </div>
 					</div>	
         )
     }
 }
 
-export default Doctors;
+export default withStyles(styles)(Doctors);

@@ -7,9 +7,22 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import { withStyles } from '@material-ui/core/styles';
+import DeleteIcon from '@material-ui/icons/Delete';
+import Button from '@material-ui/core/Button';
 
 import AppointmentForm from './AppointmentForm';
 import NavBar from "./NavBar";
+
+const styles = theme => ({
+  button: {
+    margin: theme.spacing.unit,
+  },
+  rightIcon: {
+    marginLeft: theme.spacing.unit,
+  },
+});
+
 
 class Appointments extends React.Component {
     state = {
@@ -112,6 +125,7 @@ class Appointments extends React.Component {
     }
 
     render() {
+      const classes = this.props;
         return(
 					<div>
             <NavBar />            
@@ -159,6 +173,10 @@ class Appointments extends React.Component {
                         <TableCell aligh="right">{appointment.end_time}</TableCell>
                         <TableCell aligh="right">{appointment.charges}</TableCell>
                         <TableCell aligh="right">{appointment.description}</TableCell>
+                        <Button variant="contained" size="small" color="secondary" className={classes.button}>
+                          Delete
+                          <DeleteIcon className={classes.rightIcon} />
+                        </Button>
                       </TableRow>
                     ))}
                   </TableBody>
@@ -170,4 +188,4 @@ class Appointments extends React.Component {
     }
 }
 
-export default Appointments;
+export default withStyles(styles)(Appointments);
