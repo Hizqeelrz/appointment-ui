@@ -111,7 +111,7 @@ class Patients extends React.Component {
     }
   
   
-    handleClickOpen = () => {
+    handleOpen = () => {
       this.setState({ open: true });
     };
 
@@ -183,9 +183,9 @@ class Patients extends React.Component {
                 onChangePhone={this.onChangePhone}
                 onChangeState={this.onChangeState}
                 onChangeCity={this.onChangeCity}
-                clickClose={this.handleOnClose}
-                closing={this.state.open}
-                clickOpen={this.handleClickOpen}
+                handleOnClose={this.handleOnClose}
+                open={this.state.open}
+                handleOpen={this.handleOpen}
                 handleClose={this.handleClose}
                 handleSubmit={this.handleSubmit}
               />

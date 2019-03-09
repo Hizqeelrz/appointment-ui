@@ -15,12 +15,12 @@ class AppointmentForm extends React.Component {
   render() {
     return(
 <div>
-        <Button variant="outlined" color="primary" onClick={this.props.handleClickOpen}>
+        <Button variant="outlined" color="primary" onClick={this.props.handleOpen}>
           Add Appointment
         </Button>
         <Dialog
-          open={this.props.opening}
-          onClose={this.props.handleClose}
+          open={this.props.open}
+          onClose={this.handleClose}
           aria-labelledby="form-dialog-title"
         >
           <DialogTitle id="form-dialog-title">Appointment Info</DialogTitle>
@@ -90,7 +90,7 @@ class AppointmentForm extends React.Component {
             <Button type="submit" onClick={this.props.handleSubmit} color="primary">
               Submit
             </Button>
-            <Button onClick={this.props.onClose} color="primary">
+            <Button onClick={this.props.handleOnClose} color="primary">
               Close
             </Button>
           </DialogActions>

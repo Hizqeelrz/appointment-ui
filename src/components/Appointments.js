@@ -25,7 +25,10 @@ const styles = theme => ({
 
 
 class Appointments extends React.Component {
-    state = {
+
+  constructor(props) {
+    super(props);
+    this.state = {
         appointments: [],
         date: '',
         patient_id: '',
@@ -36,7 +39,7 @@ class Appointments extends React.Component {
         description: '',
         open: false,
     }
-
+  }
     componentDidMount() {
         axios.get("http://localhost:4000/api/appointments").then(appoi => {
             const appointments = appoi.data.data;
@@ -90,7 +93,7 @@ class Appointments extends React.Component {
     }
   
   
-    handleClickOpen = () => {
+    handleOpen = () => {
       this.setState({ open: true });
     };
   
@@ -98,7 +101,7 @@ class Appointments extends React.Component {
       this.setState({ open: true });
     };
   
-    onClose = () => {
+    handleOnClose = () => {
       this.setState({ open: false});
     }
   
@@ -120,7 +123,7 @@ class Appointments extends React.Component {
         console.log(appoi.data);
       })
   
-      this.onClose();
+      this.handleOnClose();
       window.location.reload();
     }
 
@@ -131,10 +134,10 @@ class Appointments extends React.Component {
             <NavBar />            
             <div className="appoin-top-root">
               <span className="appoin-form"> <AppointmentForm
-                opening={this.state.open}
-                handleClickOpen={this.handleClickOpen}
+                open={this.state.open}
+                handleOpen={this.handleOpen}
                 handleClose={this.handleClose}
-                onClose={this.onClose}
+                handleOnClose={this.handleOnClose}
                 handleSubmit={this.handleSubmit}
                 onChangeDate={this.onChangeDate}
                 onChangeCharges={this.onChangeCharges}

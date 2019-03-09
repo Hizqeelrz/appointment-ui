@@ -15,11 +15,11 @@ class PatientForm extends React.Component {
   render() {
     return(
 <div>
-        <Button variant="outlined" color="primary" onClick={this.props.clickOpen}>
+        <Button variant="outlined" color="primary" onClick={this.props.handleOpen}>
           Add Patient
         </Button>
         <Dialog
-          open={this.props.closing}
+          open={this.props.open}
           onClose={this.handleClose}
           aria-labelledby="form-dialog-title"
         >
@@ -104,7 +104,7 @@ class PatientForm extends React.Component {
             <Button type="submit" onClick={this.props.handleSubmit} color="primary">
               Submit
             </Button>
-            <Button onClick={this.props.clickClose} color="primary">
+            <Button onClick={this.props.handleOnClose} color="primary">
               Close
             </Button>
           </DialogActions>
