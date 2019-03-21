@@ -124,7 +124,7 @@ class Appointments extends React.Component {
       })
   
       this.handleOnClose();
-      window.location.reload();
+      // window.location.reload();
     }
 
     render() {
@@ -161,6 +161,7 @@ class Appointments extends React.Component {
                       <TableCell aligh="right">EndTime</TableCell>
                       <TableCell aligh="right">Charges</TableCell>
                       <TableCell aligh="right">Description</TableCell>
+                      <TableCell></TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -176,10 +177,12 @@ class Appointments extends React.Component {
                         <TableCell aligh="right">{appointment.end_time}</TableCell>
                         <TableCell aligh="right">{appointment.charges}</TableCell>
                         <TableCell aligh="right">{appointment.description}</TableCell>
-                        <Button variant="contained" size="small" color="secondary" className={classes.button}>
-                          Delete
-                          <DeleteIcon className={classes.rightIcon} />
-                        </Button>
+                        <TableCell>
+                          <Button variant="contained" size="small" color="secondary" className={classes.button}>
+                            Delete
+                            <DeleteIcon className={classes.rightIcon} />
+                          </Button>
+                        </TableCell>
                       </TableRow>
                     ))}
                   </TableBody>

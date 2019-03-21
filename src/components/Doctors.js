@@ -43,11 +43,7 @@ class Doctors extends React.Component {
         doctors
       });
     }
-
-    componentDidUpdate(){
-
-    }
-
+    
     onChangeName = (e) => {
       this.setState({
         name: e.target.value
@@ -99,6 +95,8 @@ class Doctors extends React.Component {
   
     handleSubmit = (e) => {
       e.preventDefault();
+
+      const {doctors} = this.state;
   
       const doctor = {
         name: this.state.name,
@@ -108,14 +106,38 @@ class Doctors extends React.Component {
         qualification: this.state.qualification,
         speciality: this.state.speciality
       }
-  
+
+      // const {doctors} = this.state;
+
+      // const doctors = {...doctors, doctor};
+
+      // this.setState({
+      //   doctors: doctors
+      // })
+
+
+      const doct = [...doctors, doctor];
+
+      this.setState({
+        doctors: doct
+      });
+
       Axios.post("http://localhost:4000/api/doctors", {doctor}).then(doct => {
         console.log(doct);
         console.log(doct.data);
+        // console.log(doct.data.data.id);
+
+        // doctor = {id: doct.data.data.id, ...doctor};
       })
+      
+      // const doctors = [...doctors, doctor];
+
+      // this.setState({
+      //   doctors
+      // })
   
       this.onClose();
-      window.location.reload();
+      // window.location.reload();
     }
 
     handleChangeId = (e) => {
@@ -191,7 +213,7 @@ class Doctors extends React.Component {
                   </TableHead>
                   <TableBody>
                     {this.state.doctors.map((doctor, i) => (
-                      <TableRow key={doctor.id}>
+                      <TableRow key={i}>
                         <TableCell component="th" scope="row">
                           {doctor.id}
                         </TableCell>

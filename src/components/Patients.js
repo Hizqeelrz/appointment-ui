@@ -145,7 +145,7 @@ class Patients extends React.Component {
       })
   
       this.handleOnClose();
-      window.location.reload();
+      // window.location.reload();
     }
     
     handleDelete = async patient => {
