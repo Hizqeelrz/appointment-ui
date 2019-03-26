@@ -105,10 +105,12 @@ class Appointments extends React.Component {
       this.setState({ open: false});
     }
   
-    handleSubmit = (e) => {
+    handleSubmit = async (e) => {
       e.preventDefault();
-  
-      const appointment = {
+
+      const {appointments} = this.state;
+
+      let appointment = {
         date: this.state.date,
         patient_id: this.state.patient_id,
         doctor_id: this.state.doctor_id,
@@ -118,13 +120,21 @@ class Appointments extends React.Component {
         description: this.state.description
       }
   
-      axios.post("http://localhost:4000/api/appointments", {appointment}).then(appoi => {
+      await axios.post("http://localhost:4000/api/appointments", {appointment}).then(appoi => {
         console.log(appoi);
         console.log(appoi.data);
+
+        const appointId = appoi.data.data.id;
+        appointment = {id: appointId, ...appointment}
+      })
+
+      const appointmen = [...appointments, appointment];
+
+      this.setState({
+        appointments: appointmen
       })
   
       this.handleOnClose();
-      // window.location.reload();
     }
 
     render() {

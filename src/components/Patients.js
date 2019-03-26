@@ -124,10 +124,12 @@ class Patients extends React.Component {
       this.setState({ open: false});
     }
   
-    handleSubmit = (e) => {
+    handleSubmit = async (e) => {
       e.preventDefault();
+
+      const {patients} = this.state;
   
-      const patient = {
+      let patient = {
         firstname: this.state.firstname,
         lastname: this.state.lastname,
         email: this.state.email,
@@ -139,13 +141,21 @@ class Patients extends React.Component {
         state: this.state.state
       }
   
-      axios.post("http://localhost:4000/api/patients", {patient}).then(pat => {
+      await axios.post("http://localhost:4000/api/patients", {patient}).then(pat => {
         console.log(pat);
         console.log(pat.data);
+
+        const patId = pat.data.data.id;
+        patient = {id: patId, ...patient};
+      })
+
+      const patien = [...patients, patient];
+
+      this.setState({
+        patients: patien
       })
   
       this.handleOnClose();
-      // window.location.reload();
     }
     
     handleDelete = async patient => {
@@ -208,7 +218,7 @@ class Patients extends React.Component {
                   </TableHead>
                   <TableBody>
                     {this.state.patients.map((patient, i) => (
-                      <TableRow key={patient.id}>
+                      <TableRow key={i}>
                         <TableCell component="th" scope="row">
                           {patient.id}
                         </TableCell>
