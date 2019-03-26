@@ -93,12 +93,12 @@ class Doctors extends React.Component {
       this.setState({ open: false});
     }
   
-    handleSubmit = (e) => {
+    handleSubmit = async (e) => {
       e.preventDefault();
 
       const {doctors} = this.state;
   
-      const doctor = {
+      let doctor = {
         name: this.state.name,
         email: this.state.email,
         age: this.state.age,
@@ -107,34 +107,35 @@ class Doctors extends React.Component {
         speciality: this.state.speciality
       }
 
-      // const {doctors} = this.state;
-
-      // const doctors = {...doctors, doctor};
-
-      // this.setState({
-      //   doctors: doctors
-      // })
-
-
-      const doct = [...doctors, doctor];
-
-      this.setState({
-        doctors: doct
-      });
-
-      Axios.post("http://localhost:4000/api/doctors", {doctor}).then(doct => {
+      await Axios.post("http://localhost:4000/api/doctors", {doctor}).then(doct => {
+        console.log("single Data")
         console.log(doct);
+        console.log("Doct contain Data")
         console.log(doct.data);
-        // console.log(doct.data.data.id);
+        console.log("Doct data in data")
+        console.log(doct.data.data)
+        console.log("doct data in data in data in id")
+        console.log(doct.data.data.id);
 
-        // doctor = {id: doct.data.data.id, ...doctor};
+        const doctId = doct.data.data.id
+        doctor = {id: doctId, ...doctor};
+
+        console.log("Before Printing")
+        console.log(doctor);
+        // doctor.id = doct.data.data.id
       })
       
-      // const doctors = [...doctors, doctor];
+      console.log("This is prinitng")
+      console.log(doctor)
+      console.log("surrounded by the array")
 
-      // this.setState({
-      //   doctors
-      // })
+      const doctri = [...doctors, doctor];
+
+      // console.log(doctri);
+
+      this.setState({
+        doctors: doctri
+      })
   
       this.onClose();
       // window.location.reload();
